@@ -1,0 +1,33 @@
+{
+  "name": "cloud-robot-services",
+  "version": "0.0.1",
+  "description": "[EDIT THIS: You can put badges to the README using [shields.io](https://shields.io/). Explain the repository's purpose shortly.]",
+  "main": "app/app.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node build/app.js",
+    "dev": "nodemon app/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robolaunch/cloud-robot-services.git"
+  },
+  "author": "gokhangunduz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robolaunch/cloud-robot-services/issues"
+  },
+  "homepage": "https://github.com/robolaunch/cloud-robot-services#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.14",
+    "@types/express": "^4.17.19",
+    "@types/node": "^20.8.4",
+    "express": "^4.18.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "kafkajs": "^2.2.4"
+  }
+}
