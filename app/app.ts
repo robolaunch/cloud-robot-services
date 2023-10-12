@@ -6,6 +6,8 @@ import appRouters from "./src/routes/app.routes";
 import createDB from "./src/functions/createDB";
 import bodyParser from "body-parser";
 import cors from "cors";
+import preparationKafka from "./src/jobs/preparationKafka";
+import kafkaListener from "./src/jobs/kafkaListener";
 
 function app() {
   const app = express();
@@ -31,6 +33,8 @@ function app() {
 
   const server = app.listen(env.application.port, async function () {
     await createDB();
+    await preparationKafka();
+    await kafkaListener();
     console.log(
       `[Cloud Robot Services] Service is running on port ${env.application.port}`
     );

@@ -4,5 +4,7 @@ import kafkaTopicConfig from "../configs/kafkaTopicConfig";
 export default async function preparationKafka() {
   await kafkaAdminClient.connect();
 
-  await kafkaAdminClient.createTopics(kafkaTopicConfig());
+  await kafkaAdminClient.createTopics(await kafkaTopicConfig());
+
+  await kafkaAdminClient.disconnect();
 }

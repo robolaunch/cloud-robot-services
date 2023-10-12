@@ -1,6 +1,6 @@
 import { KafkaTopicConfig } from "../types/types";
 
-export default function kafkaTopicConfig(): KafkaTopicConfig {
+export default async function kafkaTopicConfig(): Promise<KafkaTopicConfig> {
   return {
     topics: [
       {

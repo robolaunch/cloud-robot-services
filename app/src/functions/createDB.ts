@@ -44,8 +44,8 @@ async function createTables() {
   try {
     await dbClient.query(`
     CREATE TABLE barcodes (
-    scanner_id INTEGER,
     time INTEGER,
+    scanner_id INTEGER,
     barcode TEXT,
     location_x FLOAT,
     location_y FLOAT,
@@ -54,8 +54,8 @@ async function createTables() {
 
     await dbClient.query(`
     CREATE TABLE barcodes_log (
-    scanner_id INTEGER,
     time INTEGER,
+    scanner_id INTEGER,
     barcode TEXT,
     location_x FLOAT,
     location_y FLOAT,
