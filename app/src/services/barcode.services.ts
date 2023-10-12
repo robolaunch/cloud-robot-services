@@ -50,8 +50,8 @@ async function post(req: Request, res: Response) {
     }
 
     await databaseClient.query(
-      "INSERT INTO barcodes (scanner_id, time, barcode, location_x, location_y, location_z) VALUES ($1, $2, $3, $4, $5, $6)",
-      [scanner_id, time, barcode, location_x, location_y, location_z]
+      "INSERT INTO barcodes (time, scanner_id, barcode, location_x, location_y, location_z) VALUES ($1, $2, $3, $4, $5, $6)",
+      [time, scanner_id, barcode, location_x, location_y, location_z]
     );
 
     setResponse(res, 200, "Data added successfully");
