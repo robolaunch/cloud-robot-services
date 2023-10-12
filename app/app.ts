@@ -1,4 +1,9 @@
 import express, { Request, Response, NextFunction } from "express";
+import barcodeRouters from "./src/routes/barcode.routes";
+import env from "./src/providers/environmentProvider";
+import taskRouters from "./src/routes/task.routes";
+import appRouters from "./src/routes/app.routes";
+import createDB from "./src/functions/createDB";
 import bodyParser from "body-parser";
 import cors from "cors";
 
@@ -18,8 +23,17 @@ function app() {
     })
   );
 
-  const server = app.listen(8077, function () {
-    console.log(`[Cloud Robot Services] Service is running on port 8077`);
+  app.use("/barcode", barcodeRouters);
+
+  app.use("/task", taskRouters);
+
+  app.use("/", appRouters);
+
+  const server = app.listen(env.application.port, async function () {
+    await createDB();
+    console.log(
+      `[Cloud Robot Services] Service is running on port ${env.application.port}`
+    );
   });
 
   process.on("SIGINT", () => {
