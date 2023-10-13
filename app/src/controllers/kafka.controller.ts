@@ -2,6 +2,9 @@ import axios from "axios";
 import { Consumer, EachMessagePayload } from "kafkajs";
 import { Barcode } from "../types/types";
 import env from "../providers/environmentProvider";
+import createDatabaseTable from "../helpers/createDatabaseTable";
+import { databaseTables } from "../global/variables";
+import databaseClient from "../clients/databaseClient";
 
 async function barcode(consumer: Consumer) {
   await consumer.run({
@@ -35,7 +38,27 @@ async function topic(consumer: Consumer) {
   await consumer.run({
     eachMessage: async ({ topic, partition, message }: EachMessagePayload) => {
       if (message.value) {
+        const data = JSON.parse(message.value.toString());
+
+        if (!databaseTables.includes(data.name)) {
+          await createDatabaseTable({
+            table_name: data.name,
+            sql: `
+    time INTEGER,
+    name TEXT,
+    type TEXT,
+    data TEXT
+    `,
+          });
+        }
+
         console.log("kafkaTopic", message.value.toString());
+
+        databaseClient.query(
+          `
+        INSERT INTO ${data.name} (time, name, type, data) VALUES ($1, $2, $3, $4)`,
+          [data.time, data.name, data.type, data.data]
+        );
       }
     },
   });

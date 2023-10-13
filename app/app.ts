@@ -37,9 +37,8 @@ function app() {
   app.use("/", appRouters);
 
   const server = app.listen(env.application.port, async function () {
-    await databaseAdminClient.connect();
-    await databaseClient.connect();
     await createDatabaseFlow();
+
     await preparationKafka();
     await kafkaListenerJob();
     console.log(

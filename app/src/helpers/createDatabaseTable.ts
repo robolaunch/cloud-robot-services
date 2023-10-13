@@ -1,5 +1,5 @@
-import databaseAdminClient from "../clients/databaseAdminClient";
 import databaseClient from "../clients/databaseClient";
+import { databaseTables } from "../global/variables";
 
 interface IcreateDatabaseTable {
   table_name: string;
@@ -11,10 +11,28 @@ export default async function createDatabaseTable({
   sql,
 }: IcreateDatabaseTable) {
   try {
+    const { rows: databaseTablesRow } = await databaseClient.query(
+      "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE'"
+    );
+
+    const tables = databaseTablesRow.map((row: any) => row.table_name);
+
+    if (tables.includes(table_name)) {
+      console.log(`[POSTGRE DB] '${table_name}' Tables already exists`);
+
+      databaseTables.includes(table_name)
+        ? null
+        : databaseTables.push(table_name);
+
+      return;
+    }
+
     await databaseClient.query(`
     CREATE TABLE ${table_name} (
     ${sql})`);
     console.log(`[POSTGRE DB] Created '${table_name}' table`);
+
+    databaseTables.push(table_name);
   } catch (err: any) {
     console.log(
       err.code === "42P07"
