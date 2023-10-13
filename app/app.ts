@@ -1,13 +1,16 @@
+import createDatabaseFlow from "./src/functions/createDatabaseFlow";
+import databaseAdminClient from "./src/clients/databaseAdminClient";
 import express, { Request, Response, NextFunction } from "express";
+import preparationKafka from "./src/jobs/preparationKafka";
+import databaseClient from "./src/clients/databaseClient";
 import barcodeRouters from "./src/routes/barcode.routes";
 import env from "./src/providers/environmentProvider";
+import kafkaListenerJob from "./src/jobs/kafkaListener.job";
+import topicRouters from "./src/routes/topic.routes";
 import taskRouters from "./src/routes/task.routes";
 import appRouters from "./src/routes/app.routes";
-import createDB from "./src/functions/createDB";
 import bodyParser from "body-parser";
 import cors from "cors";
-import preparationKafka from "./src/jobs/preparationKafka";
-import kafkaListener from "./src/jobs/kafkaListener";
 
 function app() {
   const app = express();
@@ -27,14 +30,18 @@ function app() {
 
   app.use("/barcode", barcodeRouters);
 
+  app.use("/topic", topicRouters);
+
   app.use("/task", taskRouters);
 
   app.use("/", appRouters);
 
   const server = app.listen(env.application.port, async function () {
-    await createDB();
+    await databaseAdminClient.connect();
+    await databaseClient.connect();
+    await createDatabaseFlow();
     await preparationKafka();
-    await kafkaListener();
+    await kafkaListenerJob();
     console.log(
       `[Cloud Robot Services] Service is running on port ${env.application.port}`
     );

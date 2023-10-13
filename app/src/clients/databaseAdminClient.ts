@@ -1,7 +1,7 @@
 import env from "../providers/environmentProvider";
 import { Client } from "pg";
 
-const client = new Client({
+const adminClient = new Client({
   host: env.database.host,
   port: env.database.port,
   database: env.su.name,
@@ -9,4 +9,4 @@ const client = new Client({
   password: env.su.password,
 });
 
-export default client;
+export default adminClient;

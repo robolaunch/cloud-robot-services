@@ -11,6 +11,10 @@ export default async function kafkaTopicConfig(): Promise<KafkaTopicConfig> {
         topic: "task",
         numPartitions: 1,
       },
+      {
+        topic: "topic",
+        numPartitions: 1,
+      },
     ],
   };
 }
