@@ -1,4 +1,4 @@
-import env from "../providers/environmentProvider";
+import env from "../providers/environment.provider";
 import { Client } from "pg";
 
 const databaseAdminClient = new Client({

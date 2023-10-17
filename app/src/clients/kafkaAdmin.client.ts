@@ -1,4 +1,4 @@
-import kafka from "./kafkaClient";
+import kafka from "./kafka.client";
 
 const kafkaAdminClient = kafka.admin();
 

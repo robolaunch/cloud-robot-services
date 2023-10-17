@@ -1,8 +1,8 @@
 import kafkaController from "../controllers/kafka.controller";
 import { KafkaTopicConfig } from "../types/types";
 import { ITopicConfig } from "kafkajs";
-import kafkaTopicConfig from "../configs/kafkaTopicConfig";
-import kafkaClient from "../clients/kafkaClient";
+import kafkaTopicConfig from "../configs/kafkaTopic.config";
+import kafkaClient from "../clients/kafka.client";
 
 export default async function kafkaListenerJob() {
   await kafkaTopicConfig().then(async (data: KafkaTopicConfig) => {

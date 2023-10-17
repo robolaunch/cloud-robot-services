@@ -1,5 +1,5 @@
-import databaseAdminClient from "../clients/databaseAdminClient";
-import env from "../providers/environmentProvider";
+import databaseAdminClient from "../clients/databaseAdmin.client";
+import env from "../providers/environment.provider";
 
 export default async function createDatabase() {
   try {

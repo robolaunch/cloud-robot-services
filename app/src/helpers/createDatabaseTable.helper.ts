@@ -1,4 +1,4 @@
-import databaseClient from "../clients/databaseClient";
+import databaseClient from "../clients/database.client";
 import { databaseTables } from "../global/variables";
 
 interface IcreateDatabaseTable {

@@ -1,5 +1,5 @@
-import kafkaAdminClient from "../clients/kafkaAdminClient";
-import kafkaTopicConfig from "../configs/kafkaTopicConfig";
+import kafkaAdminClient from "../clients/kafkaAdmin.client";
+import kafkaTopicConfig from "../configs/kafkaTopic.config";
 
 export default async function preparationKafka() {
   await kafkaAdminClient.connect();

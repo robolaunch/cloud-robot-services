@@ -1,4 +1,4 @@
-import createDatabaseTable from "./createDatabaseTable";
+import createDatabaseTable from "./createDatabaseTable.helper";
 
 export async function createDatabaseTables() {
   await createDatabaseTable({

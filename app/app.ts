@@ -1,10 +1,8 @@
-import createDatabaseFlow from "./src/functions/createDatabaseFlow";
-import databaseAdminClient from "./src/clients/databaseAdminClient";
+import createDatabaseFlow from "./src/functions/createDatabase.function";
 import express, { Request, Response, NextFunction } from "express";
-import preparationKafka from "./src/jobs/preparationKafka";
-import databaseClient from "./src/clients/databaseClient";
+import preparationKafka from "./src/functions/createKafkaTopics.function";
 import barcodeRouters from "./src/routes/barcode.routes";
-import env from "./src/providers/environmentProvider";
+import env from "./src/providers/environment.provider";
 import kafkaListenerJob from "./src/jobs/kafkaListener.job";
 import topicRouters from "./src/routes/topic.routes";
 import taskRouters from "./src/routes/task.routes";

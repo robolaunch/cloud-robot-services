@@ -1,10 +1,10 @@
 import axios from "axios";
 import { Consumer, EachMessagePayload } from "kafkajs";
 import { Barcode } from "../types/types";
-import env from "../providers/environmentProvider";
-import createDatabaseTable from "../helpers/createDatabaseTable";
+import env from "../providers/environment.provider";
+import createDatabaseTable from "../helpers/createDatabaseTable.helper";
 import { databaseTables } from "../global/variables";
-import databaseClient from "../clients/databaseClient";
+import databaseClient from "../clients/database.client";
 
 async function barcode(consumer: Consumer) {
   await consumer.run({
@@ -12,13 +12,16 @@ async function barcode(consumer: Consumer) {
       if (message.value) {
         const data: Barcode = JSON.parse(message.value.toString());
 
-        axios.post(`http://127.0.0.1:${env.application.port}/barcode`, {
-          time: data.time,
-          scannerId: data.scanner_id,
-          barcode: data.barcode,
-          location_x: data.location_x,
-          location_z: data.location_z,
-        });
+        try {
+          await axios.post(`http://127.0.0.1:${env.application.port}/barcode`, {
+            time: data.time,
+            scannerId: data.scanner_id,
+            barcode: data.barcode,
+            location_x: data.location_x,
+            location_y: data.location_y,
+            location_z: data.location_z,
+          });
+        } catch (error: any) {}
       }
     },
   });
@@ -44,11 +47,11 @@ async function topic(consumer: Consumer) {
           await createDatabaseTable({
             table_name: data.name,
             sql: `
-    time INTEGER,
-    name TEXT,
-    type TEXT,
-    data TEXT
-    `,
+            time INTEGER,
+            name TEXT,
+            type TEXT,
+            data TEXT
+            `,
           });
         }
 

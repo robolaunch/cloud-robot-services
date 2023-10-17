@@ -1,5 +1,5 @@
-import databaseClient from "../clients/databaseClient";
-import setResponse from "../helpers/setResponse";
+import databaseClient from "../clients/database.client";
+import setResponse from "../helpers/setResponse.helper";
 import { Request, Response } from "express";
 
 async function get(req: Request, res: Response) {

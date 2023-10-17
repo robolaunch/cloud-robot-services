@@ -1,4 +1,4 @@
-import kafkaClient from "../clients/kafkaClient";
+import kafkaClient from "../clients/kafka.client";
 
 (async () => {
   const producer = kafkaClient.producer();
