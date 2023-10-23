@@ -7,6 +7,7 @@ import kafkaListenerJob from "./src/jobs/kafkaListener.job";
 import topicRouters from "./src/routes/topic.routes";
 import taskRouters from "./src/routes/task.routes";
 import appRouters from "./src/routes/app.routes";
+import logRouters from "./src/routes/log.routes";
 import bodyParser from "body-parser";
 import cors from "cors";
 
@@ -31,6 +32,8 @@ function app() {
   app.use("/topic", topicRouters);
 
   app.use("/task", taskRouters);
+
+  app.use("/log", logRouters);
 
   app.use("/", appRouters);
 
