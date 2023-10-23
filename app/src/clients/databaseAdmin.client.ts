@@ -4,9 +4,9 @@ import { Client } from "pg";
 const databaseAdminClient = new Client({
   host: env.database.host,
   port: env.database.port,
-  database: env.su.name,
-  user: env.su.user,
-  password: env.su.password,
+  database: env.database.su.name,
+  user: env.database.su.user,
+  password: env.database.su.password,
 });
 
 export default databaseAdminClient;

@@ -46,7 +46,7 @@ function app() {
 
   process.on("SIGINT", () => {
     server.close(() => {
-      console.log("[Cloud Robot Services] Service is shutting down");
+      console.warn("[Cloud Robot Services] Service is shutting down");
       process.exit(0);
     });
   });

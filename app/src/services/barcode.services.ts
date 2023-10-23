@@ -1,6 +1,7 @@
 import databaseClient from "../clients/database.client";
 import setResponse from "../helpers/setResponse.helper";
 import { Request, Response } from "express";
+import { Barcode } from "../types/types";
 
 async function get(req: Request, res: Response) {
   try {
@@ -32,8 +33,14 @@ async function getWithTime(req: Request, res: Response) {
 
 async function post(req: Request, res: Response) {
   try {
-    const { scanner_id, time, barcode, location_x, location_y, location_z } =
-      req.body;
+    const {
+      scanner_id,
+      time,
+      barcode,
+      location_x,
+      location_y,
+      location_z,
+    }: Barcode = req.body;
 
     const { rows: data } = await databaseClient.query(
       "SELECT * FROM barcodes WHERE barcode = $1 AND time BETWEEN $2 AND $3",

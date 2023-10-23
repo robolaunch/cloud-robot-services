@@ -11,18 +11,25 @@ export type Environments = {
   database: {
     host: string;
     port: number;
+    su: {
+      name: string;
+      user: string;
+      password: string;
+    };
+    rl: {
+      name: string;
+      user: string;
+      password: string;
+    };
   };
-  su: {
-    name: string;
-    user: string;
-    password: string;
-  };
-  rl: {
-    name: string;
-    user: string;
-    password: string;
+  kafka: {
+    client_id: string;
+    broker: string;
   };
   application: {
+    port: number;
+  };
+  robot: {
     port: number;
   };
 };

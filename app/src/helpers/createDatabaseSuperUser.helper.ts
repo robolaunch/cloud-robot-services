@@ -4,7 +4,7 @@ import env from "../providers/environment.provider";
 export default async function createDatabaseSuperUser() {
   try {
     await databaseAdminClient.query(`
-      CREATE ROLE ${env.rl.user}
+      CREATE ROLE ${env.database.rl.user}
       WITH
       LOGIN
       SUPERUSER
@@ -13,12 +13,12 @@ export default async function createDatabaseSuperUser() {
       INHERIT
       NOREPLICATION
       CONNECTION LIMIT -1
-      ENCRYPTED PASSWORD '${env.rl.password}';
+      ENCRYPTED PASSWORD '${env.database.rl.password}';
     `);
     console.log("[POSTGRE DB] Robolaunch superuser has been created.");
   } catch (err: any) {
     if (err?.code === "42710") {
-      console.log("[POSTGRE DB] Robolaunch superuser already exists.");
+      console.warn("[POSTGRE DB] Robolaunch superuser already exists.");
     } else {
       console.error("[POSTGRE DB] Error creating superuser:", err);
     }

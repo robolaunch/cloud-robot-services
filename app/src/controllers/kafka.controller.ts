@@ -55,8 +55,6 @@ async function topic(consumer: Consumer) {
           });
         }
 
-        console.log("kafkaTopic", message.value.toString());
-
         databaseClient.query(
           `
         INSERT INTO ${data.name} (time, name, type, data) VALUES ($1, $2, $3, $4)`,

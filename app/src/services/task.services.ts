@@ -1,6 +1,7 @@
 import databaseClient from "../clients/database.client";
 import setResponse from "../helpers/setResponse.helper";
 import { Request, Response } from "express";
+import { Task } from "../types/types";
 
 async function get(req: Request, res: Response) {
   try {
@@ -12,10 +13,12 @@ async function get(req: Request, res: Response) {
 }
 
 async function post(req: Request, res: Response) {
+  const { task_id, task_name, task_json }: Task = req.body;
+
   try {
     await databaseClient.query(
       "INSERT INTO tasks (task_id, task_name, task_json) VALUES ($1, $2, $3)",
-      [req.body.task_id, req.body.task_name, req.body.task_json]
+      [task_id, task_name, task_json]
     );
     setResponse(res, 200, "Data added successfully");
   } catch (error) {
