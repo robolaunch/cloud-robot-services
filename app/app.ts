@@ -1,9 +1,9 @@
-import createDatabaseFlow from "./src/functions/createDatabase.function";
-import express, { Request, Response, NextFunction } from "express";
 import preparationKafka from "./src/functions/createKafkaTopics.function";
+import createDatabaseFlow from "./src/functions/createDatabase.function";
+import express, { Request, Response, NextFunction, Express } from "express";
+import kafkaListenerJob from "./src/jobs/kafkaListener.job";
 import barcodeRouters from "./src/routes/barcode.routes";
 import env from "./src/providers/environment.provider";
-import kafkaListenerJob from "./src/jobs/kafkaListener.job";
 import topicRouters from "./src/routes/topic.routes";
 import taskRouters from "./src/routes/task.routes";
 import appRouters from "./src/routes/app.routes";
@@ -11,8 +11,8 @@ import logRouters from "./src/routes/log.routes";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-function app() {
-  const app = express();
+async function app(): Promise<void> {
+  const app: Express = express();
 
   app.all("/*", function (req: Request, res: Response, next: NextFunction) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -39,7 +39,6 @@ function app() {
 
   const server = app.listen(env.application.port, async function () {
     await createDatabaseFlow();
-
     await preparationKafka();
     await kafkaListenerJob();
     console.log(
