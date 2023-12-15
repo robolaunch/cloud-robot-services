@@ -17,5 +17,5 @@ RUN npm install
 RUN npm run build
 FROM node:latest as production-stage
 COPY --from=build-stage /app/build /app
-RUN node app/app.js
 EXPOSE 8077
+ENTRYPOINT [ "node" , "app/app.js" ] 
