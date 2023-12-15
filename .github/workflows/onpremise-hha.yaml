@@ -1,4 +1,4 @@
-name: Docker Image
+name: Docker Image (onpremise-hha)
 
 on:
   push:
@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: onpremise-hha
 
     steps:
       - name: Checkout Code
@@ -21,7 +23,7 @@ jobs:
         run: |
           docker build \
             --file Dockerfile \
-            --tag robolaunchio/cloud-robot-services:${{ steps.project_version.outputs.version }} \
+            --tag robolaunchio/cloud-robot-services-onpremise:${{ steps.project_version.outputs.version }}-hha \
             --build-arg DATABASE_HOST=${{ secrets.DATABASE_HOST }} \
             --build-arg DATABASE_PORT=${{ secrets.DATABASE_PORT }} \
             --build-arg DATABASE_SU_NAME=${{ secrets.DATABASE_SU_NAME }} \
@@ -40,4 +42,4 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push the Docker Image to Docker Hub
-        run: docker push robolaunchio/cloud-robot-services:${{ steps.project_version.outputs.version }}
+        run: docker push robolaunchio/cloud-robot-services-onpremise:${{ steps.project_version.outputs.version }}-hha
