@@ -7,6 +7,8 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
     "typeRoots": ["node_modules/@types"]
   }
 }
