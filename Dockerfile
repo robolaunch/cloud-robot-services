@@ -19,4 +19,4 @@ FROM node:latest as production-stage
 COPY --from=build-stage /app/build /app
 COPY --from=build-stage /app/node_modules /node_modules
 EXPOSE 8077
-RUN node /app/app.js
+ENTRYPOINT [ "node","/app/app.js" ]
