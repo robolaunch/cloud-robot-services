@@ -1,4 +1,4 @@
-name: Docker Image (public-dev)
+name: Docker
 
 on:
   push:
