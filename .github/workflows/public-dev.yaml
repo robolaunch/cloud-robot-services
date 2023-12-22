@@ -24,18 +24,6 @@ jobs:
           docker build \
             --file Dockerfile \
             --tag robolaunchio/cloud-robot-services-public:${{ steps.project_version.outputs.version }}-dev \
-            --build-arg DATABASE_HOST=${{ secrets.DATABASE_HOST }} \
-            --build-arg DATABASE_PORT=${{ secrets.DATABASE_PORT }} \
-            --build-arg DATABASE_SU_NAME=${{ secrets.DATABASE_SU_NAME }} \
-            --build-arg DATABASE_SU_USER=${{ secrets.DATABASE_SU_USER }} \
-            --build-arg DATABASE_SU_PASSWORD=${{ secrets.DATABASE_SU_PASSWORD }} \
-            --build-arg DATABASE_RL_NAME=${{ secrets.DATABASE_RL_NAME }} \
-            --build-arg DATABASE_RL_USER=${{ secrets.DATABASE_RL_USER }} \
-            --build-arg DATABASE_RL_PASSWORD=${{ secrets.DATABASE_RL_PASSWORD }} \
-            --build-arg KAFKA_CLIENT_ID=${{ secrets.KAFKA_CLIENT_ID }} \
-            --build-arg KAFKA_BROKER=${{ secrets.KAFKA_BROKER }} \
-            --build-arg APPLICATION_PORT=${{ secrets.APPLICATION_PORT }} \
-            --build-arg ROBOT_PORT=${{ secrets.ROBOT_PORT }} \
             .
 
       - name: Login to Docker Hub

@@ -1,11 +1,10 @@
 {
   "name": "cloud-robot-services",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Cloud Robot Services",
   "main": "app/app.ts",
   "scripts": {
-    "build": "npx tsc",
-    "start": "node build/app.js",
+    "build": "tsc",
     "dev": "nodemon app/app.ts"
   },
   "repository": {
