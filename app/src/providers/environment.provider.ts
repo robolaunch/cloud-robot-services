@@ -26,6 +26,7 @@ const env: Environments = {
     port: parseInt(process.env.APPLICATION_PORT!),
   },
   robot: {
+    host: process.env.ROBOT_HOST!,
     port: parseInt(process.env.ROBOT_PORT!),
   },
 };

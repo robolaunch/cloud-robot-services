@@ -30,6 +30,7 @@ export type Environments = {
     port: number;
   };
   robot: {
+    host: string;
     port: number;
   };
 };

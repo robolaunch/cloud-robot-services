@@ -6,7 +6,7 @@ import axios from "axios";
 async function get(req: Request, res: Response) {
   try {
     const { data: files } = await axios.get(
-      `http://127.0.0.1:${env.robot.port}/log`
+      `${env.robot.host}:${env.robot.port}/log`
     );
 
     if (files) {
@@ -23,7 +23,7 @@ async function get(req: Request, res: Response) {
 async function getWithName(req: Request, res: Response) {
   try {
     const { data: file } = await axios.get(
-      `http://127.0.0.1:${env.robot.port}/log/${req.params.name}`
+      `${env.robot.host}:${env.robot.port}/log/${req.params.name}`
     );
 
     if (file) {
@@ -40,7 +40,7 @@ async function getWithName(req: Request, res: Response) {
 async function remove(req: Request, res: Response) {
   try {
     const { data } = await axios.delete(
-      `http://127.0.0.1:${env.robot.port}/log`
+      `${env.robot.host}:${env.robot.port}/log`
     );
 
     if (data.success) {
@@ -56,7 +56,7 @@ async function remove(req: Request, res: Response) {
 async function removeWithName(req: Request, res: Response) {
   try {
     const { data } = await axios.delete(
-      `http://127.0.0.1:${env.robot.port}/log/${req.params.name}`
+      `${env.robot.host}:${env.robot.port}/log/${req.params.name}`
     );
 
     if (data.success) {
