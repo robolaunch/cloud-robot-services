@@ -2,9 +2,9 @@ FROM node:latest as build-stage
 COPY . /app
 WORKDIR /app
 RUN npm install
-RUN npm run build
+RUN npm i -g @vercel/ncc
+RUN ncc build app/app.ts -o build
 FROM node:latest as production-stage
 COPY --from=build-stage /app/build /app
-COPY --from=build-stage /app/node_modules /node_modules
 EXPOSE 8077
-ENTRYPOINT [ "node","/app/app.js" ]
+ENTRYPOINT [ "node","/app/index.js" ]
