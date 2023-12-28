@@ -6,14 +6,17 @@ export default async function kafkaTopicConfig(): Promise<KafkaTopicConfig> {
       {
         topic: "barcode",
         numPartitions: 1,
+        replicationFactor: 1,
       },
       {
         topic: "task",
         numPartitions: 1,
+        replicationFactor: 1,
       },
       {
         topic: "topic",
         numPartitions: 1,
+        replicationFactor: 1,
       },
     ],
   };
