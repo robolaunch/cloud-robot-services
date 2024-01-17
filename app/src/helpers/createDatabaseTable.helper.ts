@@ -1,5 +1,6 @@
 import databaseClient from "../clients/database.client";
 import { databaseTables } from "../global/variables";
+import logger from "./logger.helper";
 
 interface IcreateDatabaseTable {
   table_name: string;
@@ -18,7 +19,7 @@ export default async function createDatabaseTable({
     const tables = databaseTablesRow.map((row: any) => row.table_name);
 
     if (tables.includes(table_name)) {
-      console.log(`[POSTGRE DB] '${table_name}' Tables already exists`);
+      logger(`[POSTGRE DB] '${table_name}' Tables already exists`);
 
       databaseTables.includes(table_name)
         ? null
@@ -30,11 +31,11 @@ export default async function createDatabaseTable({
     await databaseClient.query(`
     CREATE TABLE ${table_name} (
     ${sql})`);
-    console.log(`[POSTGRE DB] Created '${table_name}' table`);
+    logger(`[POSTGRE DB] Created '${table_name}' table`);
 
     databaseTables.push(table_name);
   } catch (err: any) {
-    console.log(
+    logger(
       err.code === "42P07"
         ? `[POSTGRE DB] '${table_name}' Tables already exists`
         : err

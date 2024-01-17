@@ -3,6 +3,7 @@ import { createDatabaseTables } from "../helpers/createDatabaseTables.helper";
 import createDatabase from "../helpers/createDatabase.helper";
 import databaseAdminClient from "../clients/databaseAdmin.client";
 import databaseClient from "../clients/database.client";
+import logger from "../helpers/logger.helper";
 
 export default async function dbCreateFlow() {
   try {
@@ -14,7 +15,7 @@ export default async function dbCreateFlow() {
 
     await createDatabaseTables();
   } catch (error) {
-    console.log("[POSTGRE DB] Error connecting/creating database");
+    logger("[POSTGRE DB] Error connecting/creating database");
     throw error;
   }
 }

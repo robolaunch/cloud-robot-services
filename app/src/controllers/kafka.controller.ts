@@ -5,6 +5,7 @@ import env from "../providers/environment.provider";
 import createDatabaseTable from "../helpers/createDatabaseTable.helper";
 import { databaseTables } from "../global/variables";
 import databaseClient from "../clients/database.client";
+import logger from "../helpers/logger.helper";
 
 async function barcode(consumer: Consumer) {
   await consumer.run({
@@ -31,7 +32,7 @@ async function task(consumer: Consumer) {
   await consumer.run({
     eachMessage: async ({ topic, partition, message }: EachMessagePayload) => {
       if (message.value) {
-        console.log("kafkaTask", message.value.toString());
+        logger(`kafkaTask ${message.value.toString()}`);
       }
     },
   });

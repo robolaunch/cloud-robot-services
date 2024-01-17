@@ -1,5 +1,6 @@
 import databaseAdminClient from "../clients/databaseAdmin.client";
 import env from "../providers/environment.provider";
+import logger from "./logger.helper";
 
 export default async function createDatabase() {
   try {
@@ -11,9 +12,9 @@ export default async function createDatabase() {
     LOCALE_PROVIDER = 'libc'
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;`);
-    console.log(`[POSTGRE DB] Created ${env.database.rl.name} database`);
+    logger(`[POSTGRE DB] Created ${env.database.rl.name} database`);
   } catch (err: any) {
-    console.log(
+    logger(
       err?.code === "42P04" ? "[POSTGRE DB] Database already exists" : err
     );
   }

@@ -2,6 +2,7 @@ import databaseClient from "../clients/database.client";
 import setResponse from "../helpers/setResponse.helper";
 import { Request, Response } from "express";
 import { Barcode } from "../types/types";
+import logger from "../helpers/logger.helper";
 
 async function get(req: Request, res: Response) {
   try {
@@ -59,6 +60,9 @@ async function post(req: Request, res: Response) {
     await databaseClient.query(
       "INSERT INTO barcodes (time, scanner_id, barcode, location_x, location_y, location_z) VALUES ($1, $2, $3, $4, $5, $6)",
       [time, scanner_id, barcode, location_x, location_y, location_z]
+    );
+    logger(
+      `${time}, ${scanner_id}, ${barcode}, ${location_x}, ${location_y}, ${location_z}`
     );
 
     setResponse(res, 200, "Data added successfully");

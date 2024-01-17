@@ -10,6 +10,7 @@ import appRouters from "./src/routes/app.routes";
 import logRouters from "./src/routes/log.routes";
 import bodyParser from "body-parser";
 import cors from "cors";
+import logger from "./src/helpers/logger.helper";
 
 async function app(): Promise<void> {
   const app: Express = express();
@@ -37,18 +38,18 @@ async function app(): Promise<void> {
 
   app.use("/", appRouters);
 
-  const server = app.listen(env.application.port, async function () {
+  const server = app.listen(env.application.port, "0.0.0.0", async function () {
     await createDatabaseFlow();
     await preparationKafka();
     await kafkaListenerJob();
-    console.log(
+    logger(
       `[Cloud Robot Services] Service is running on port ${env.application.port}`
     );
   });
 
   process.on("SIGINT", () => {
     server.close(() => {
-      console.warn("[Cloud Robot Services] Service is shutting down");
+      logger("[Cloud Robot Services] Service is shutting down");
       process.exit(0);
     });
   });
